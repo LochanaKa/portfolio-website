@@ -30,7 +30,7 @@ navLink.forEach(n => n.addEventListener('click', linkAction))
 
 /*=============== HOME TYPED JS ===============*/
  const typedHome = new Typed('#home-typed', {
-      strings: ['Data Science Undergraduate', 'Co-Founder', 'Digital marketer'],
+      strings: ['Data Science Undergraduate_', 'Co-Founder_', 'Digital marketer_' , 'Content Creator_'],
       typeSpeed: 80,
       backSpeed: 40,
       backDelay: 2000,
@@ -131,3 +131,87 @@ sr.reveal('.about__content, .contact__content', {origin: 'bottom'})
 sr.reveal('.about__image, .contact__form', {delay: 300,})
 
 sr.reveal('.projects__card', {interval: 100})
+
+/*=============== HERO PARTICLE CANVAS ===============*/
+const initParticles = () => {
+   const canvas = document.getElementById('hero-canvas')
+   if (!canvas) return
+
+   const ctx = canvas.getContext('2d')
+   let particles = []
+   let animId
+
+   const resize = () => {
+      canvas.width  = canvas.parentElement.offsetWidth
+      canvas.height = canvas.parentElement.offsetHeight
+   }
+   resize()
+   window.addEventListener('resize', () => { resize(); buildParticles() })
+
+   const PARTICLE_COUNT = 55
+   const MAX_DIST       = 130
+   const TEAL           = '29, 185, 154'
+
+   class Particle {
+      constructor() { this.init() }
+      init() {
+         this.x    = Math.random() * canvas.width
+         this.y    = Math.random() * canvas.height
+         this.vx   = (Math.random() - 0.5) * 0.35
+         this.vy   = (Math.random() - 0.5) * 0.35
+         this.size = Math.random() * 1.8 + 0.8
+         this.alpha = Math.random() * 0.45 + 0.1
+      }
+      update() {
+         this.x += this.vx
+         this.y += this.vy
+         if (this.x < -10 || this.x > canvas.width  + 10) this.vx *= -1
+         if (this.y < -10 || this.y > canvas.height + 10) this.vy *= -1
+      }
+      draw() {
+         ctx.beginPath()
+         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+         ctx.fillStyle = `rgba(${TEAL}, ${this.alpha})`
+         ctx.fill()
+      }
+   }
+
+   const buildParticles = () => {
+      particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle())
+   }
+   buildParticles()
+
+   const drawConnections = () => {
+      for (let i = 0; i < particles.length; i++) {
+         for (let j = i + 1; j < particles.length; j++) {
+            const dx   = particles[i].x - particles[j].x
+            const dy   = particles[i].y - particles[j].y
+            const dist = Math.sqrt(dx * dx + dy * dy)
+            if (dist < MAX_DIST) {
+               const opacity = 0.18 * (1 - dist / MAX_DIST)
+               ctx.beginPath()
+               ctx.moveTo(particles[i].x, particles[i].y)
+               ctx.lineTo(particles[j].x, particles[j].y)
+               ctx.strokeStyle = `rgba(${TEAL}, ${opacity})`
+               ctx.lineWidth   = 0.6
+               ctx.stroke()
+            }
+         }
+      }
+   }
+
+   const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      particles.forEach(p => { p.update(); p.draw() })
+      drawConnections()
+      animId = requestAnimationFrame(animate)
+   }
+   animate()
+
+   // Pause when tab is hidden (performance)
+   document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(animId)
+      else animate()
+   })
+}
+initParticles()
