@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,8 @@
             --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent-green: #10b981; /* Matches the Creative Computers logo */
+            --accent-green: #10b981;
+            /* Matches the Creative Computers logo */
             --accent-blue: #3b82f6;
             --border-color: #334155;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -44,7 +46,7 @@
             padding: 80px 0 40px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(180deg, rgba(11,17,32,0.9) 0%, rgba(11,17,32,1) 100%);
+            background: linear-gradient(180deg, rgba(11, 17, 32, 0.9) 0%, rgba(11, 17, 32, 1) 100%);
         }
 
         .company-logo {
@@ -53,7 +55,8 @@
             border-radius: 50%;
             border: 3px solid var(--accent-green);
             margin-bottom: 20px;
-            background: #fff; /* Keep logo background white for visibility */
+            background: #fff;
+            /* Keep logo background white for visibility */
             padding: 10px;
         }
 
@@ -185,7 +188,7 @@
         .gallery {
             margin: 60px 0;
         }
-        
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -217,7 +220,7 @@
 
         /* Impact Section */
         .impact-section {
-            background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(59,130,246,0.1) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
             border: 1px solid var(--accent-green);
             border-radius: 12px;
             padding: 40px;
@@ -242,29 +245,84 @@
             .grid-2 {
                 grid-template-columns: 1fr;
             }
+
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         /* Fade-in Animation */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        
+
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        footer {
+            margin-top: auto;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            background-color: rgba(11, 17, 32, 0.8);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-status {
+            color: var(--text-muted);
+        }
+
+        .footer-status span {
+            color: var(--accent-green);
+        }
+
+        .pulse {
+            display: inline-block;
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Quick adjustment for mobile layout */
+        @media (max-width: 480px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <header class="fade-in">
         <div class="container">
-            <img src="WhatsApp Image 2026-03-25 at 21.11.18.jpeg" alt="Creative Computers Logo" class="company-logo">
+            <img src="img/logo.jpg" alt="Creative Computers Logo" class="company-logo">
             <h1>Automated Invoicing & Financial Tracking</h1>
             <p class="subtitle">process_automation.exe | Built in 7 Days</p>
             <div class="badge-container">
@@ -272,13 +330,14 @@
                 <span class="badge">Process Optimization</span>
             </div>
             <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
-                Transforming a fully manual, error-prone Word document process into a dynamic, automated database system at Creative Computers.
+                Transforming a fully manual, error-prone Word document process into a dynamic, automated database system
+                at Creative Computers.
             </p>
         </div>
     </header>
 
     <main class="container">
-        
+
         <section class="grid-2 fade-in">
             <div class="card">
                 <h3>The Problem</h3>
@@ -295,61 +354,70 @@
                     <li><strong>Remove Redundancy:</strong> Eliminate repeated manual typing.</li>
                     <li><strong>Auto-Calculation:</strong> Automatically generate invoice numbers, totals, and VAT.</li>
                     <li><strong>Digital Storage:</strong> Save invoices directly to local directories as PDFs.</li>
-                    <li><strong>Financial Tracking:</strong> Visually track unpaid invoices and highlight outstanding credit.</li>
+                    <li><strong>Financial Tracking:</strong> Visually track unpaid invoices and highlight outstanding
+                        credit.</li>
                 </ul>
             </div>
         </section>
 
         <section class="workflow fade-in">
             <h2 class="workflow-title">System Architecture & Workflow</h2>
-            
+
             <div class="step">
                 <div class="step-number">01</div>
-                <div class="step-text">Data entry officer selects a new row in the database. <span class="highlight">The current date fills automatically</span>, and the user selects Sale or Repair (S/R).</div>
+                <div class="step-text">Data entry officer selects a new row in the database. <span class="highlight">The
+                        current date fills automatically</span>, and the user selects Sale or Repair (S/R).</div>
             </div>
-            
+
             <div class="step">
                 <div class="step-number">02</div>
-                <div class="step-text">On the VAT_Invoice interface, clicking <span class="highlight">Generate</span> creates the next sequential invoice number, resets old fields, and fetches customer data automatically.</div>
+                <div class="step-text">On the VAT_Invoice interface, clicking <span class="highlight">Generate</span>
+                    creates the next sequential invoice number, resets old fields, and fetches customer data
+                    automatically.</div>
             </div>
 
             <div class="step">
                 <div class="step-number">03</div>
-                <div class="step-text">User enters item details. The system <span class="highlight">automatically calculates totals and VAT</span> without manual math.</div>
+                <div class="step-text">User enters item details. The system <span class="highlight">automatically
+                        calculates totals and VAT</span> without manual math.</div>
             </div>
 
             <div class="step">
                 <div class="step-number">04</div>
-                <div class="step-text">Clicking <span class="highlight">Add</span> pushes the financial calculations back into the master database. <span class="highlight">Save</span> generates a PDF, and <span class="highlight">Print</span> sends it straight to the hardware.</div>
+                <div class="step-text">Clicking <span class="highlight">Add</span> pushes the financial calculations
+                    back into the master database. <span class="highlight">Save</span> generates a PDF, and <span
+                        class="highlight">Print</span> sends it straight to the hardware.</div>
             </div>
 
             <div class="step">
                 <div class="step-number">05</div>
-                <div class="step-text">Visual Database Logic: Rows turn <span class="highlight" style="color: var(--accent-green);">green</span> when payment is pending. Once credit hits zero, the row reverts to white, making debt tracking instant.</div>
+                <div class="step-text">Visual Database Logic: Rows turn <span class="highlight"
+                        style="color: var(--accent-green);">green</span> when payment is pending. Once credit hits zero,
+                    the row reverts to white, making debt tracking instant.</div>
             </div>
         </section>
 
         <section class="gallery fade-in">
             <h2 class="workflow-title">Technical Implementation</h2>
             <div class="gallery-grid">
-                
+
                 <div class="image-wrapper">
-                    <img src="invoice.jpg" alt="Invoice Generation UI">
+                    <img src="img/invoice.jpg" alt="Invoice Generation UI">
                     <div class="image-caption">Fig 1. Automated Invoice Generation Dashboard</div>
                 </div>
 
                 <div class="image-wrapper">
-                    <img src="database.jpg" alt="Database Tracking">
+                    <img src="img/database.jpg" alt="Database Tracking">
                     <div class="image-caption">Fig 2. Master Database with conditional color tracking</div>
                 </div>
 
                 <div class="image-wrapper">
-                    <img src="VBA.jpg" alt="VBA Code Editor">
+                    <img src="img/VBA.jpg" alt="VBA Code Editor">
                     <div class="image-caption">Fig 3. Backend VBA Scripting & Macro Logic</div>
                 </div>
 
                 <div class="image-wrapper">
-                    <img src="dashboard.jpg" alt="Live Environment">
+                    <img src="img/dashboard.jpg" alt="Live Environment">
                     <div class="image-caption">Fig 4. System deployed live, featuring visual data dashboards</div>
                 </div>
 
@@ -359,7 +427,11 @@
         <section class="impact-section fade-in">
             <h2>The Impact</h2>
             <p>
-                Deployed within a single week, this lightweight automation drastically reduced the daily administrative workload. Accuracy hit 100% on calculations, invoices were issued significantly faster to customers, and management gained instant visual access to monthly sales and outstanding credit balances without manual auditing. <strong>Small infrastructural improvements generate massive organizational efficiency.</strong>
+                Deployed within a single week, this lightweight automation drastically reduced the daily administrative
+                workload. Accuracy hit 100% on calculations, invoices were issued significantly faster to customers, and
+                management gained instant visual access to monthly sales and outstanding credit balances without manual
+                auditing. <strong>Small infrastructural improvements generate massive organizational
+                    efficiency.</strong>
             </p>
         </section>
 
@@ -380,5 +452,12 @@
             });
         });
     </script>
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2025 Lochana Karunarathna. All rights reserved.</p>
+            <p class="footer-status">system_status: <span class="pulse">●</span> online</p>
+        </div>
+    </footer>
 </body>
+
 </html>
