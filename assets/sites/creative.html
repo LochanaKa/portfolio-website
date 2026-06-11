@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Invoicing System | Portfolio</title>
+    <style>
+        /* CSS Variables for a Data Science / Dark Theme Vibe */
+        :root {
+            --bg-main: #0b1120;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-green: #10b981; /* Matches the Creative Computers logo */
+            --accent-blue: #3b82f6;
+            --border-color: #334155;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        header {
+            padding: 80px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(11,17,32,0.9) 0%, rgba(11,17,32,1) 100%);
+        }
+
+        .company-logo {
+            width: 120px;
+            height: auto;
+            border-radius: 50%;
+            border: 3px solid var(--accent-green);
+            margin-bottom: 20px;
+            background: #fff; /* Keep logo background white for visibility */
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3::before {
+            content: '>';
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        ul li::before {
+            content: '•';
+            color: var(--accent-blue);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Timeline / Workflow */
+        .workflow {
+            margin: 60px 0;
+        }
+
+        .workflow-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            align-items: center;
+        }
+
+        .step-number {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            min-width: 50px;
+            font-weight: bold;
+        }
+
+        .step-text {
+            color: var(--text-muted);
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            margin: 60px 0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .image-wrapper {
+            background: var(--bg-card);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .image-caption {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 10px;
+            padding-bottom: 5px;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(59,130,246,0.1) 100%);
+            border: 1px solid var(--accent-green);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .impact-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .impact-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fade-in">
+        <div class="container">
+            <img src="WhatsApp Image 2026-03-25 at 21.11.18.jpeg" alt="Creative Computers Logo" class="company-logo">
+            <h1>Automated Invoicing & Financial Tracking</h1>
+            <p class="subtitle">process_automation.exe | Built in 7 Days</p>
+            <div class="badge-container">
+                <span class="badge">VBA / Excel Macros</span>
+                <span class="badge">Process Optimization</span>
+            </div>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                Transforming a fully manual, error-prone Word document process into a dynamic, automated database system at Creative Computers.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section class="grid-2 fade-in">
+            <div class="card">
+                <h3>The Problem</h3>
+                <ul>
+                    <li>Invoicing was entirely manual using MS Word.</li>
+                    <li>Data had to be entered twice (Word + Database), doubling the workload.</li>
+                    <li>High susceptibility to human error during data entry.</li>
+                    <li>Lacked proper financial traceability and credit tracking.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>The Objectives</h3>
+                <ul>
+                    <li><strong>Remove Redundancy:</strong> Eliminate repeated manual typing.</li>
+                    <li><strong>Auto-Calculation:</strong> Automatically generate invoice numbers, totals, and VAT.</li>
+                    <li><strong>Digital Storage:</strong> Save invoices directly to local directories as PDFs.</li>
+                    <li><strong>Financial Tracking:</strong> Visually track unpaid invoices and highlight outstanding credit.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="workflow fade-in">
+            <h2 class="workflow-title">System Architecture & Workflow</h2>
+            
+            <div class="step">
+                <div class="step-number">01</div>
+                <div class="step-text">Data entry officer selects a new row in the database. <span class="highlight">The current date fills automatically</span>, and the user selects Sale or Repair (S/R).</div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">02</div>
+                <div class="step-text">On the VAT_Invoice interface, clicking <span class="highlight">Generate</span> creates the next sequential invoice number, resets old fields, and fetches customer data automatically.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+                <div class="step-text">User enters item details. The system <span class="highlight">automatically calculates totals and VAT</span> without manual math.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">04</div>
+                <div class="step-text">Clicking <span class="highlight">Add</span> pushes the financial calculations back into the master database. <span class="highlight">Save</span> generates a PDF, and <span class="highlight">Print</span> sends it straight to the hardware.</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">05</div>
+                <div class="step-text">Visual Database Logic: Rows turn <span class="highlight" style="color: var(--accent-green);">green</span> when payment is pending. Once credit hits zero, the row reverts to white, making debt tracking instant.</div>
+            </div>
+        </section>
+
+        <section class="gallery fade-in">
+            <h2 class="workflow-title">Technical Implementation</h2>
+            <div class="gallery-grid">
+                
+                <div class="image-wrapper">
+                    <img src="1766731958493.jpg" alt="Invoice Generation UI">
+                    <div class="image-caption">Fig 1. Automated Invoice Generation Dashboard</div>
+                </div>
+
+                <div class="image-wrapper">
+                    <img src="1766731917240.jpg" alt="Database Tracking">
+                    <div class="image-caption">Fig 2. Master Database with conditional color tracking</div>
+                </div>
+
+                <div class="image-wrapper">
+                    <img src="1766732683322.jpg" alt="VBA Code Editor">
+                    <div class="image-caption">Fig 3. Backend VBA Scripting & Macro Logic</div>
+                </div>
+
+                <div class="image-wrapper">
+                    <img src="1766732207076.jpg" alt="Live Environment">
+                    <div class="image-caption">Fig 4. System deployed live, featuring visual data dashboards</div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="impact-section fade-in">
+            <h2>The Impact</h2>
+            <p>
+                Deployed within a single week, this lightweight automation drastically reduced the daily administrative workload. Accuracy hit 100% on calculations, invoices were issued significantly faster to customers, and management gained instant visual access to monthly sales and outstanding credit balances without manual auditing. <strong>Small infrastructural improvements generate massive organizational efficiency.</strong>
+            </p>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
