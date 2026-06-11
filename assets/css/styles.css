@@ -275,7 +275,9 @@ img {
 .home__image {
   width: 250px;
   height: 250px;
-  background-color: var(--white-color);
+  background-image: url(../img/bg-image.png);
+  background-size: cover;
+  background-position: center;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
