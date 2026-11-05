@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Live CV of Lochana Karunarathna — Data Science undergraduate from Sri Lanka.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#080d18">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Live CV | Lochana Karunarathna</title>
+  <style>
+    :root{--bg:#080d18;--paper:#fff;--ink:#172033;--muted:#536176;--accent:#2364ad;--line:#dce3ed;--soft:#f2f5f9;--font:"DM Sans",Arial,sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#eaf0fb;font:15px/1.65 var(--font)}a{color:inherit;text-decoration:none}.toolbar{max-width:1040px;margin:28px auto 18px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.back{color:#9db6d7;font-size:14px}.toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{border:1px solid #35445b;background:#111d30;color:#eaf0fb;border-radius:7px;padding:10px 14px;cursor:pointer;font:600 13px var(--font)}.toolbar button.selected,.toolbar button.primary{background:#75adf6;color:#07111e;border-color:#75adf6}.toolbar button:hover{border-color:#75adf6}.hint{max-width:992px;margin:0 auto 14px;padding:0 24px;color:#9baac0;font-size:12px}.cv{width:min(900px,calc(100% - 32px));margin:0 auto 50px;background:var(--paper);color:var(--ink);padding:58px 66px;box-shadow:0 24px 90px rgba(0,0,0,.3)}.cv-header{border-bottom:2px solid var(--ink);padding-bottom:20px}.cv-header h1{font-size:30px;line-height:1.1;letter-spacing:-.8px;margin:0 0 5px}.cv-headline{font-size:15px;font-weight:700;color:var(--accent)}.contact-line{font-size:12px;color:var(--muted);margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 14px}.contact-line a{color:var(--accent);text-decoration:underline}.cv-section{margin-top:22px}.cv-section h2{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid var(--line);padding-bottom:6px;margin:0 0 10px;color:var(--accent)}.cv-section p{margin:0;font-size:13px}.entry{margin:0 0 13px;break-inside:avoid}.entry-head{display:flex;justify-content:space-between;gap:12px}.entry h3{font-size:14px;margin:0;font-weight:700}.entry-date{font-size:12px;color:var(--muted);white-space:nowrap}.entry-sub{font-size:12px;color:var(--muted);margin:1px 0 4px}.entry ul{margin:5px 0 0;padding-left:18px;font-size:12px}.entry li{margin:2px 0}.skill-lines{font-size:12px}.skill-lines strong{color:#26354c}.project-entry{margin-bottom:10px}.project-entry strong{font-size:13px}.project-entry p{font-size:12px;margin:2px 0}.cv-footer{font-size:10px;color:#6d7888;margin-top:25px;text-align:center}.hide{display:none!important}
+    @media(max-width:640px){.cv{padding:32px 24px}.entry-head{display:block}.entry-date{display:block}.cv-header h1{font-size:25px}.toolbar{align-items:flex-start}.toolbar-actions{width:100%}.toolbar button{flex:1}}
+    @media print{@page{size:A4;margin:14mm}body{background:#fff;color:#172033;font-size:12px}.toolbar,.hint{display:none!important}.cv{width:100%;margin:0;padding:0;box-shadow:none}.cv-header h1{font-size:25px}.cv-section{margin-top:16px}.entry{margin-bottom:9px}.cv-footer{margin-top:15px}a{color:inherit;text-decoration:none}}
+  </style>
+</head>
+<body>
+  <div class="toolbar"><a class="back" href="../"><i aria-hidden="true">←</i> Back to portfolio</a><div class="toolbar-actions"><button id="general-btn" class="selected" type="button">General CV</button><button id="data-btn" type="button">Data Science CV</button><button id="print-btn" class="primary" type="button">Save as PDF ↗</button></div></div>
+  <p class="hint">Choose a CV version, then select “Save as PDF” and choose “Save to PDF” in your browser's print dialog. The page uses selectable text and a simple, ATS-conscious layout.</p>
+  <main class="cv" id="cv" aria-live="polite">
+    <header class="cv-header"><h1 id="cv-name">Lochana Karunarathna</h1><div class="cv-headline" id="cv-headline">Data Science Undergraduate</div><div class="contact-line" id="cv-contact"></div></header>
+    <section class="cv-section"><h2>Professional Profile</h2><p id="cv-summary"></p></section>
+    <section class="cv-section"><h2>Education</h2><div id="cv-education"></div></section>
+    <section class="cv-section"><h2>Experience</h2><div id="cv-experience"></div></section>
+    <section class="cv-section"><h2>Technical & Professional Skills</h2><div id="cv-skills" class="skill-lines"></div></section>
+    <section class="cv-section"><h2>Selected Projects</h2><div id="cv-projects"></div></section>
+    <div class="cv-footer">CV content is maintained as structured data in this portfolio repository.</div>
+  </main>
+  <script src="../assets/js/cv-data.js"></script>
+  <script>
+    const data=window.CV_DATA;
+    let current="general";
+    const el=id=>document.getElementById(id);
+    const safe=value=>String(value??"");
+    function renderEntry(item,kind){
+      const wrap=document.createElement("article");wrap.className="entry";
+      const head=document.createElement("div");head.className="entry-head";
+      const title=document.createElement("h3");title.textContent=kind==="education"?item.title:item.role||item.title;
+      const date=document.createElement("span");date.className="entry-date";date.textContent=item.date||"";
+      head.append(title,date);wrap.append(head);
+      const sub=document.createElement("div");sub.className="entry-sub";sub.textContent=item.place||item.company||"";wrap.append(sub);
+      if(item.detail){const p=document.createElement("p");p.textContent=item.detail;wrap.append(p)}
+      if(item.bullets?.length){const ul=document.createElement("ul");item.bullets.forEach(value=>{const li=document.createElement("li");li.textContent=value;ul.append(li)});wrap.append(ul)}
+      return wrap;
+    }
+    function render(){
+      el("cv-name").textContent=data.name;el("cv-headline").textContent=data.headline;
+      el("cv-summary").textContent=data.summary[current];
+      el("cv-contact").replaceChildren();
+      [[data.location,null],[data.email,"mailto:"+data.email],[data.phone,null],["LinkedIn",data.linkedin],["GitHub",data.github]].forEach(([label,url])=>{
+        const span=document.createElement("span");
+        if(url){const a=document.createElement("a");a.href=url;a.textContent=label;if(url.startsWith("http")){a.target="_blank";a.rel="noopener noreferrer"}span.append(a)}
+        else span.textContent=label;
+        el("cv-contact").append(span);
+      });
+      el("cv-education").replaceChildren(...data.education.map(item=>renderEntry(item,"education")));
+      el("cv-experience").replaceChildren(...data.experience.map(item=>renderEntry(item,"experience")));
+      el("cv-skills").textContent=data.skills[current].join(" · ");
+      el("cv-projects").replaceChildren(...data.projects.map(item=>{
+        const div=document.createElement("div");div.className="project-entry";
+        const strong=document.createElement("strong");strong.textContent=item.title;div.append(strong);
+        const p=document.createElement("p");p.textContent=item.detail+" "+item.tools;div.append(p);
+        return div;
+      }));
+      el("general-btn").classList.toggle("selected",current==="general");
+      el("data-btn").classList.toggle("selected",current==="data");
+    }
+    el("general-btn").addEventListener("click",()=>{current="general";render()});
+    el("data-btn").addEventListener("click",()=>{current="data";render()});
+    el("print-btn").addEventListener("click",()=>window.print());
+    render();
+  </script>
+</body>
+</html>
