@@ -47,6 +47,7 @@
       return wrap;
     }
     function render(){
+      document.title=(current==="data"?"Data Science CV":"General CV")+" | "+data.name;
       el("cv-name").textContent=data.name;el("cv-headline").textContent=data.headline;
       el("cv-summary").textContent=data.summary[current];
       el("cv-contact").replaceChildren();
@@ -70,7 +71,7 @@
     }
     el("general-btn").addEventListener("click",()=>{current="general";render()});
     el("data-btn").addEventListener("click",()=>{current="data";render()});
-    el("print-btn").addEventListener("click",()=>window.print());
+    el("print-btn").addEventListener("click",()=>{document.title=(current==="data"?"Lochana-Karunarathna-Data-Science-CV":"Lochana-Karunarathna-General-CV");window.print()});
     render();
   </script>
 </body>
